@@ -1,5 +1,4 @@
 import { NestFactory } from "@nestjs/core";
-import { Logger } from "@nestjs/common";
 import type { Express } from "express";
 import express from "express";
 import { IncomingMessage, ServerResponse } from "node:http";
@@ -19,8 +18,6 @@ bootstrap();
 async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
-  Logger.verbose('appEnv', JSON.stringify(appEnv));
 
   if (appEnv.isProd) {
 
