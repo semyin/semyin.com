@@ -4,8 +4,13 @@ import { swc } from "rollup-plugin-swc3";
 import react from '@vitejs/plugin-react';
 import devtoolsJson from 'vite-plugin-devtools-json';
 import { resolve } from "node:path";
+import { existsSync } from "node:fs";
 
 export default defineConfig(({ mode }) => {
+
+  if (!existsSync('.env')) {
+    throw new Error('\n❌ .env file not found');
+  }
 
   const env = loadEnv(mode, process.cwd());
   const port = parseInt(env.VITE_PORT || "3000", 10);
