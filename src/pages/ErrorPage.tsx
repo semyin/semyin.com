@@ -32,7 +32,7 @@ export default function ErrorPage() {
   // useRouteError() 可以获取到 loader 中 throw 的任何东西
   const error = useRouteError();
 
-  console.error(error);
+  console.error('[ErrorPgae]', error);
 
   let errorMessage: string;
   let errorData: any;
@@ -45,7 +45,7 @@ export default function ErrorPage() {
     errorStatus = error.status;
     errorData = decodeURIComponent(error.data);
 
-    errorMessage = error.statusText || error.data; // error.data 是 Response body
+    errorMessage = error.statusText // error.data 是 Response body
   } else if (error instanceof Error) {
     // 如果抛出的是 new Error('message')
     errorMessage = error.message;

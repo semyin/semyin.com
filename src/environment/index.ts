@@ -1,8 +1,3 @@
-import * as dotenv from "dotenv";
-import { Logger } from "@nestjs/common";
-
-dotenv.config();
-
 const isProd = import.meta.env.PROD;
 
 const isDev = import.meta.env.DEV;
@@ -23,5 +18,3 @@ export const appEnv = {
   host,
   apiPrefix,
 }
-
-Logger.log(JSON.stringify(appEnv), 'Environment');

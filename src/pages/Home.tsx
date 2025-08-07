@@ -5,6 +5,7 @@ import { useAppContext } from "@/renderer/AppContext";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { LoaderFunction } from "react-router";
+import { http } from "@/utils/request";
 
 function Page() {
 
@@ -49,11 +50,8 @@ function Page() {
 const homeQueryKey = ['home'];
 
 const fetchHome = async () => {
- 
-  // throw new Error('Not Found2');
-  // throw new Response('Not Found2', { status: 404 });
-  const res = await fetch('http://localhost:51723/api/home');
-  return res.json();
+  const res = await http.get('/home2');
+  return res
 }
 
 const loader  = (queryClient: QueryClient): LoaderFunction => async () => {
