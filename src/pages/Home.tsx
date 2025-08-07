@@ -49,12 +49,15 @@ function Page() {
 const homeQueryKey = ['home'];
 
 const fetchHome = async () => {
-  const res = await fetch('http://localhost:5173/api/home');
+ 
+  // throw new Error('Not Found2');
+  // throw new Response('Not Found2', { status: 404 });
+  const res = await fetch('http://localhost:51723/api/home');
   return res.json();
 }
 
 const loader  = (queryClient: QueryClient): LoaderFunction => async () => {
-  return queryClient.prefetchQuery({
+  return queryClient.ensureQueryData({
     queryKey: homeQueryKey,
     queryFn: fetchHome,
   });

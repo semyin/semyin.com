@@ -4,11 +4,13 @@ import App from './App';
 import * as Home from '@/pages/Home';
 import * as About from '@/pages/About';
 import * as Detail from '@/pages/Detail';
+import ErrorPage from '@/pages/ErrorPage';
 
 const createRoutes = (queryClient: QueryClient): RouteObject[] => [
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '',

@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from 'express';
-import express from 'express';
 import { readFile } from 'fs/promises';
 import viteDevServer from 'vavite/vite-dev-server';
 
