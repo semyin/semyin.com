@@ -50,7 +50,7 @@ function Page() {
 const homeQueryKey = ['home'];
 
 const fetchHome = async () => {
-  const res = await http.get('/home2');
+  const res = await http.get('/home');
   return res
 }
 

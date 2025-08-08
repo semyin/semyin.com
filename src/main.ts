@@ -8,10 +8,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { AppModule } from "@/app.module";
 import { appEnv } from "@/environment";
-import * as dotenv from "dotenv";
 import { Logger } from "@nestjs/common";
-
-dotenv.config();
 
 Logger.log(JSON.stringify(appEnv), 'Environment');
 

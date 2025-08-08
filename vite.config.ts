@@ -17,6 +17,10 @@ export default defineConfig(({ mode }) => {
   const host = env.VITE_HOST || "localhost";
   
   return {
+    define: {
+      'process.env.PORT': port,
+      'process.env.HOST': JSON.stringify(host),
+    },
     server: {
       host,
       port,

@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 import { AppController } from "./app.controller";
 import { ApiModule } from "./module/api.module";
 import { reactSsrMiddleware } from "./middleware/reactSsr.middleware";
@@ -6,6 +7,9 @@ import { reactSsrMiddleware } from "./middleware/reactSsr.middleware";
 @Module({
   controllers: [AppController],
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ApiModule,
   ],
   providers: [],
