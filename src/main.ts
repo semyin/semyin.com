@@ -1,4 +1,4 @@
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
 import type { Express } from "express";
 import express from "express";
 import { IncomingMessage, ServerResponse } from "node:http";
@@ -9,6 +9,9 @@ import { dirname } from "path";
 import { AppModule } from "@/app.module";
 import { appEnv } from "@/environment";
 import { Logger } from "@nestjs/common";
+import cookieParser from "cookie-parser";
+import { TransformInterceptor } from "./common/interceptors/transform.interceptor";
+import { HttpExceptionFilter } from "./common/filters/http-exception.filter";
 
 Logger.log(JSON.stringify(appEnv), 'Environment');
 
@@ -21,6 +24,14 @@ bootstrap();
 async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.use(cookieParser());
+
+  const reflector = app.get(Reflector); // 获取 Reflector 实例
+
+  app.useGlobalInterceptors(new TransformInterceptor(reflector)); // 全局注册拦截器
+
+  app.useGlobalFilters(new HttpExceptionFilter()); // 全局注册异常过滤器
 
   if (appEnv.isProd) {
 
