@@ -60,7 +60,7 @@ function Page() {
         <meta property="og:title" content={`${article.title} - 简约博客`} />
         <meta property="og:description" content={article.summary || article.title} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`${window.location.origin}/article/${article.id}`} />
+        <meta property="og:url" content={typeof window !== 'undefined' ? `${window.location.origin}/article/${article.id}` : `/article/${article.id}`} />
         <meta property="article:published_time" content={article.createdAt} />
         <meta property="article:modified_time" content={article.updatedAt} />
         
