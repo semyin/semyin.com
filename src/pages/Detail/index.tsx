@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { LoaderFunction, useLoaderData, useParams } from "react-router";
 import { Helmet } from '@dr.pogodin/react-helmet';
 import { api } from "@/utils/request";
-import { Layout } from "@/components";
+import { Layout, MarkdownRenderer } from "@/components";
 import styles from './index.module.css';
 
 export { Page, loader };
@@ -88,10 +88,9 @@ function Page() {
             </header>
 
             {/* 文章内容 */}
-            <div 
-              className={styles.articleContent}
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
+            <div className={styles.articleContent}>
+              <MarkdownRenderer content={article.content} />
+            </div>
           </article>
         </div>
       </Layout>

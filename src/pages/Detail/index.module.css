@@ -51,48 +51,49 @@
   font-weight: 500;
 }
 
-/* Article Content */
+/* Article Content - Updated for Markdown */
 .articleContent {
+  margin: 3rem 0;
+  /* 移除之前的字体和行高设置，让MarkdownRenderer接管样式 */
+}
+
+/* 确保 MarkdownRenderer 样式与设计稿兼容 */
+.articleContent :global(.markdown) {
   font-size: 1rem;
   line-height: 1.7;
   color: var(--text-primary);
   transition: color 0.3s ease;
 }
 
-/* Content Typography */
-.articleContent h2 {
+/* 覆盖一些MarkdownRenderer的默认样式以匹配设计稿 */
+.articleContent :global(.markdown h2) {
   margin: 2rem 0 1rem 0;
   font-size: 1.3rem;
   color: var(--text-primary);
 }
 
-.articleContent h3 {
+.articleContent :global(.markdown h3) {
   margin: 1.5rem 0 0.8rem 0;
   font-size: 1.1rem;
   color: var(--text-primary);
 }
 
-.articleContent p {
+.articleContent :global(.markdown p) {
   margin-bottom: 1.5rem;
   color: var(--text-primary);
 }
 
-.articleContent ul,
-.articleContent ol {
+.articleContent :global(.markdown ul),
+.articleContent :global(.markdown ol) {
   margin: 1rem 0 1.5rem 2rem;
   color: var(--text-primary);
 }
 
-.articleContent li {
+.articleContent :global(.markdown li) {
   margin-bottom: 0.5rem;
 }
 
-.articleContent li strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.articleContent blockquote {
+.articleContent :global(.markdown blockquote) {
   border-left: 4px solid var(--accent-color);
   padding-left: 1.5rem;
   margin: 1.5rem 0;
@@ -103,7 +104,7 @@
   border-radius: 0 8px 8px 0;
 }
 
-.articleContent code {
+.articleContent :global(.markdown .alone-code) {
   background: var(--tag-bg);
   color: var(--text-primary);
   padding: 0.2rem 0.4rem;
@@ -112,32 +113,30 @@
   font-size: 0.9em;
 }
 
-.articleContent pre {
+.articleContent :global(.markdown .code-block) {
   background: var(--bg-primary);
-  padding: 1.5rem;
   border-radius: 8px;
   overflow-x: auto;
   margin: 1.5rem 0;
   border: 1px solid var(--border-color);
 }
 
-.articleContent pre code {
+.articleContent :global(.markdown .code-block pre) {
+  margin: 0;
   background: none;
-  padding: 0;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
-.articleContent a {
+.articleContent :global(.markdown a) {
   color: var(--accent-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.articleContent a:hover {
+.articleContent :global(.markdown a:hover) {
   text-decoration: underline;
 }
 
-.articleContent img {
+.articleContent :global(.markdown .markdown-image) {
   max-width: 100%;
   height: auto;
   border-radius: 8px;

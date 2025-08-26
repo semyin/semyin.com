@@ -4,3 +4,4 @@ export { Footer } from './Footer';
 export { BackToTop } from './BackToTop';
 export { SearchModal } from './SearchModal';
 export { Layout } from './Layout';
+export { default as MarkdownRenderer } from './Markdown/MarkdownRenderer';

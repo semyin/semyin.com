@@ -8,13 +8,6 @@ export const Navigation: React.FC = () => {
       <div className="container">
         <div className={styles.navLinks}>
           <NavLink 
-            to="/" 
-            end
-            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
-          >
-            首页
-          </NavLink>
-          <NavLink 
             to="/categories" 
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
           >

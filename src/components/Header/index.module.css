@@ -29,8 +29,10 @@
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-primary);
+    text-decoration: none;
     transition: color 0.3s ease;
 }
+
 
 .actions {
     display: flex;

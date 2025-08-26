@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { useTheme } from '@/hooks/useUI';
 import styles from './index.module.css';
 
@@ -12,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        <h1 className={styles.siteTitle}>简约博客</h1>
+        <Link to="/" className={styles.siteTitle}>简约博客</Link>
         <div className={styles.headerRight}>
           <div className={styles.actions}>
             <button 

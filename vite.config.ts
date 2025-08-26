@@ -3,6 +3,7 @@ import { vavite } from "vavite";
 import { swc } from "rollup-plugin-swc3";
 import react from '@vitejs/plugin-react';
 import devtoolsJson from 'vite-plugin-devtools-json';
+import dynamicImport from "vite-plugin-dynamic-import";
 import { resolve } from "node:path";
 import { existsSync } from "node:fs";
 
@@ -30,6 +31,13 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, 'src'),
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
     buildSteps: [
       {
         name: "client",
@@ -53,6 +61,10 @@ export default defineConfig(({ mode }) => {
     ],
     ssr: {
       external: ["reflect-metadata"],
+      noExternal: [
+        "react-markdown",
+        "react-spinners"
+      ],
     },
     esbuild: false,
     plugins: [
@@ -74,6 +86,7 @@ export default defineConfig(({ mode }) => {
         handlerEntry: "/src/main.ts",
         serveClientAssetsInDev: true,
       }),
+      dynamicImport(),
       {
         name: "warmup",
         configureServer(server) {
