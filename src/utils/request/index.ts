@@ -118,6 +118,13 @@ export async function request<T>(url: string, options: CustomRequestInit = {}): 
   }
 }
 
+// 定义后端响应结构类型
+interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}
+
 // 封装常用的 HTTP 方法，提供便捷调用
 export const http = {
 
@@ -135,4 +142,33 @@ export const http = {
 
   delete: <T>(url: string, options?: CustomRequestInit) =>
     request<T>(url, { ...options, method: 'DELETE' }),
+};
+
+// 新增：自动提取 data 字段的便捷方法
+export const api = {
+  
+  get: async <T>(url: string, options?: CustomRequestInit): Promise<T> => {
+    const response = await request<ApiResponse<T>>(url, { ...options, method: 'GET' });
+    return response.data;
+  },
+
+  post: async <T>(url: string, data: any, options?: CustomRequestInit): Promise<T> => {
+    const response = await request<ApiResponse<T>>(url, { ...options, method: 'POST', data });
+    return response.data;
+  },
+
+  put: async <T>(url: string, data: any, options?: CustomRequestInit): Promise<T> => {
+    const response = await request<ApiResponse<T>>(url, { ...options, method: 'PUT', data });
+    return response.data;
+  },
+
+  patch: async <T>(url: string, data: any, options?: CustomRequestInit): Promise<T> => {
+    const response = await request<ApiResponse<T>>(url, { ...options, method: 'PATCH', data });
+    return response.data;
+  },
+
+  delete: async <T>(url: string, options?: CustomRequestInit): Promise<T> => {
+    const response = await request<ApiResponse<T>>(url, { ...options, method: 'DELETE' });
+    return response.data;
+  },
 };

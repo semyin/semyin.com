@@ -1,0 +1,70 @@
+/* BackToTop组件样式 */
+
+.backToTop {
+    position: fixed;
+    bottom: 2rem;
+    right: calc(50vw - 400px + 20px - 44px);
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.backToTop::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #0066cc;
+    transform: translateY(-1px);
+    transition: border-bottom-color 0.3s ease;
+}
+
+.backToTop.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.backToTop:hover {
+    background: #0066cc;
+    border-color: #0066cc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow);
+}
+
+.backToTop:hover::before {
+    border-bottom-color: white;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .backToTop {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .backToTop::before {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 7px solid #0066cc;
+    }
+    
+    .backToTop:hover::before {
+        border-bottom-color: white;
+    }
+}

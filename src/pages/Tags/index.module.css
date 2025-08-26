@@ -1,0 +1,250 @@
+/* Tags Page Styles */
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.pageDescription {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Tags Cloud */
+.tagsCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+  justify-content: flex-start;
+}
+
+.tagItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.tagItem:hover {
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.tagItem.active {
+  background: var(--accent-color);
+  color: white;
+}
+
+.tagName {
+  font-weight: 500;
+}
+
+.tagCount {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-secondary);
+  padding: 0.1rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  min-width: 16px;
+  text-align: center;
+}
+
+.tagItem:hover .tagCount,
+.tagItem.active .tagCount {
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Remove tag size variations - all tags should be the same size */
+.tagItem.large,
+.tagItem.medium,
+.tagItem.small,
+.tagItem.tiny {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.8rem;
+}
+
+/* Posts Section */
+.posts {
+  margin-top: 3rem;
+  min-height: 200px;
+}
+
+.tagPostsHeader {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tagPostsHeader h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.tagPostsHeader p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Post Items */
+.postItem {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.postItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--shadow);
+  border-color: var(--accent-color);
+}
+
+.postTitle {
+  margin: 0 0 1rem 0;
+}
+
+.postLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.postLink:hover {
+  color: var(--accent-color);
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.postDate {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.postCategory {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.postTags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.emptyState p {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 1.6rem;
+  }
+  
+  .tagsCloud {
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .postItem {
+    padding: 1rem;
+  }
+  
+  .postLink {
+    font-size: 1.1rem;
+  }
+  
+  .postMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    margin: 1rem 0;
+  }
+  
+  .pageTitle {
+    font-size: 1.8rem;
+  }
+  
+  .tagsCloud {
+    margin: 2rem 0;
+  }
+  
+  .tagPostsHeader {
+    padding: 1rem;
+  }
+  
+  .postItem {
+    padding: 0.75rem;
+  }
+}

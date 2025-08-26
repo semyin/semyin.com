@@ -44,3 +44,5 @@ lerna-debug.log*
 # vscode reset client
 .http
 .rest
+
+design/

@@ -1,0 +1,244 @@
+/* Detail Page Styles - Based on Design */
+
+/* Article Container */
+.article {
+  background: var(--bg-secondary);
+  padding: 3rem 0;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* Article Header */
+.articleHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.articleTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.articleMeta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.postDate {
+  color: var(--text-secondary);
+}
+
+.postViews {
+  color: var(--text-secondary);
+}
+
+.postCategory {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* Article Content */
+.articleContent {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+/* Content Typography */
+.articleContent h2 {
+  margin: 2rem 0 1rem 0;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+}
+
+.articleContent h3 {
+  margin: 1.5rem 0 0.8rem 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.articleContent p {
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.articleContent ul,
+.articleContent ol {
+  margin: 1rem 0 1.5rem 2rem;
+  color: var(--text-primary);
+}
+
+.articleContent li {
+  margin-bottom: 0.5rem;
+}
+
+.articleContent li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.articleContent blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-style: italic;
+  background: var(--bg-primary);
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.articleContent code {
+  background: var(--tag-bg);
+  color: var(--text-primary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+}
+
+.articleContent pre {
+  background: var(--bg-primary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.articleContent pre code {
+  background: none;
+  padding: 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.articleContent a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.articleContent a:hover {
+  text-decoration: underline;
+}
+
+.articleContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Error State */
+.errorContainer {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.errorContainer h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.errorContainer p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.backLink:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .article {
+    padding: 2rem 1.5rem;
+  }
+  
+  .articleTitle {
+    font-size: 1.6rem;
+  }
+  
+  .articleMeta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .articleContent {
+    font-size: 0.95rem;
+  }
+  
+  .articleContent h2 {
+    font-size: 1.2rem;
+  }
+  
+  .articleContent h3 {
+    font-size: 1.05rem;
+  }
+  
+  .articleContent ul,
+  .articleContent ol {
+    margin-left: 1.5rem;
+  }
+  
+  .articleContent pre {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article {
+    padding: 1.5rem 1rem;
+  }
+  
+  .articleTitle {
+    font-size: 1.4rem;
+  }
+  
+  .errorContainer {
+    padding: 2rem 1rem;
+  }
+  
+  .errorContainer h1 {
+    font-size: 1.6rem;
+  }
+}

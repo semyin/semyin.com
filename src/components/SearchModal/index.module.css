@@ -1,0 +1,216 @@
+/* SearchModal组件样式 */
+
+.searchOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.searchOverlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.searchModal {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 70vh;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 40px var(--shadow);
+    transform: translateY(-20px) scale(0.95);
+    transition: all 0.3s ease;
+}
+
+.searchOverlay.active .searchModal {
+    transform: translateY(0) scale(1);
+}
+
+.searchModalHeader {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    gap: 1rem;
+}
+
+.searchModalInput {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    padding: 0.5rem 0;
+}
+
+.searchModalInput::placeholder {
+    color: var(--text-tertiary);
+}
+
+.searchClose {
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.searchClose:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.searchResults {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.searchResultsContent {
+    padding: 1rem;
+}
+
+.searchResultItem {
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.searchResultItem:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.searchResultItem:hover {
+    background: var(--bg-primary);
+}
+
+.searchResultTitle {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.searchResultMeta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 1rem;
+}
+
+.searchNoResults {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* 搜索历史样式 */
+.searchHistory {
+    border-bottom: 1px solid var(--border-color);
+    display: none;
+}
+
+.searchHistoryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem 0.5rem;
+}
+
+.searchHistoryTitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.searchHistoryClear {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.searchHistoryClear:hover {
+    background: var(--bg-secondary);
+    color: var(--accent-hover);
+}
+
+.searchHistoryContent {
+    padding: 0 1.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.searchHistoryItem {
+    display: inline-flex;
+    align-items: center;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    padding-right: 1.5rem;
+}
+
+.searchHistoryItem:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.searchHistoryDelete {
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: currentColor;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.searchHistoryDelete:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.2);
+}

@@ -4,7 +4,9 @@ import App from './App';
 import * as Home from '@/pages/Home';
 import * as About from '@/pages/About';
 import * as Detail from '@/pages/Detail';
-import ErrorPage from '@/pages/ErrorPage';
+import * as Categories from '@/pages/Categories';
+import * as Tags from '@/pages/Tags';
+import ErrorPage from '@/pages/ErrorPage/';
 
 const createRoutes = (queryClient: QueryClient): RouteObject[] => [
   {
@@ -21,6 +23,16 @@ const createRoutes = (queryClient: QueryClient): RouteObject[] => [
         path: 'about',
         element: <About.Page />,
         loader: About.loader(queryClient),
+      },
+      {
+        path: 'categories',
+        element: <Categories.Page />,
+        loader: Categories.loader(queryClient),
+      },
+      {
+        path: 'tags',
+        element: <Tags.Page />,
+        loader: Tags.loader(queryClient),
       },
       {
         path: 'detail/:id',

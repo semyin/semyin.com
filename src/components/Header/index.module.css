@@ -1,0 +1,108 @@
+/* Header组件样式 */
+
+.header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.siteTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.searchToggle {
+    border: none;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchToggle:hover {
+    background: var(--border-color);
+}
+
+.themeToggle {
+    border: none;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.themeToggle:hover {
+    background: var(--border-color);
+    transform: rotate(180deg);
+}
+
+.themeToggle::after {
+    content: "🌙";
+}
+
+[data-theme="dark"] .themeToggle::after {
+    content: "☀️";
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .headerContainer {
+        padding: 0 16px;
+    }
+    
+    .siteTitle {
+        font-size: 1.2rem;
+    }
+    
+    .searchToggle,
+    .themeToggle {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+}

@@ -1,3 +1,4 @@
+import { appEnv } from '@/environment';
 import type { Request, Response, NextFunction } from 'express';
 import { readFile } from 'fs/promises';
 import viteDevServer from 'vavite/vite-dev-server';
@@ -69,7 +70,23 @@ async function reactSsrMiddleware(req: Request, res: Response, next: NextFunctio
 
     console.error('SSR Error:', error);
     // return basic HTML when error
-    res.status(500).send('<!DOCTYPE html><html><head><title>Error</title></head><body><h1>Server Error</h1></body></html>');
+    res.status(500).send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Error</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <h1>Server Error</h1>
+        <p>Please try again later.</p>
+        ${ appEnv.isDev ? `<p>${String(error)}</p><p>Stack Trace:</p>
+        <pre>${String((error as any).stack)}</pre>` : '' }
+      </body>
+      </html>
+      `);
   }
 }
 

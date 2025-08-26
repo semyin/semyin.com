@@ -1,0 +1,13 @@
+/* Layout组件样式 */
+
+/* 页面容器 - 实现 Sticky Footer */
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.mainContent {
+    flex: 1;
+    padding: 2rem 0;
+}
