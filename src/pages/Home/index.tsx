@@ -1,6 +1,6 @@
 export { Page, loader };
 
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { LoaderFunction } from "react-router";
 import { api } from "@/utils/request";
@@ -22,15 +22,21 @@ interface ArticleListItem {
 
 function Page() {
   const [searchQuery, setSearchQuery] = useState('');
+  // const articles: ArticleListItem[] = [];
 
-  const { data: articles, isLoading, isError, error } = useQuery({
+  const { data: articles } = useSuspenseQuery({
     queryKey: articleListQueryKey,
     queryFn: fetchArticleList,
-  });
+  })
 
-  if (isLoading) return <div>Loading posts...</div>;
+  // const { data: articles, isLoading, isError, error } = useQuery({
+  //   queryKey: articleListQueryKey,
+  //   queryFn: fetchArticleList,
+  // });
+
+  // if (isLoading) return <div>Loading posts...</div>;
   
-  if (isError) return <div>Error: {(error as Error).message}</div>;
+  // if (isError) return <div>Error: {(error as Error).message}</div>;
 
   const filteredArticles = searchQuery && articles
     ? articles.filter((article: ArticleListItem) =>
