@@ -26,6 +26,17 @@ h6 {
   line-height: 1.6;
 }
 
+/* 链接样式 */
+.markdown a {
+  color: var(--link-color);
+  text-decoration: none;
+  
+  &:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+}
+
 .markdown hr {
   margin: 10px 0;
 }
@@ -47,7 +58,7 @@ h6 {
 
 .markdown pre {
   border-radius: 2px;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 .markdown code {
@@ -61,7 +72,9 @@ h6 {
 .markdown .alone-code {
   padding: .15rem .3rem;
   font-weight: 600;
-  background-color: #ececec;
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-block-border);
+  border-radius: 3px;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
@@ -71,7 +84,17 @@ h6 {
   margin: 1em 0;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: var(--code-block-bg);
+  border: 1px solid var(--code-block-border);
+  
+  pre {
+    overflow-x: auto;
+    margin: 0;
+    padding: 1rem;
+    
+    /* 确保在移动端也能滚动 */
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 /* 代码块头部 */
@@ -80,9 +103,9 @@ h6 {
   justify-content: space-between;
   align-items: center;
   padding: 4px 12px;
-  background-color: #50505a;
+  background-color: var(--code-header-bg);
   font-size: 16px;
-  color: #333;
+  color: var(--code-header-text);
 }
 
 .code-lang {
@@ -113,20 +136,20 @@ h6 {
   th,
   td {
     padding: 0.5rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-border);
   }
 
   th {
-    background-color: #f5f5f5;
+    background-color: var(--table-header-bg);
   }
 }
 
 .markdown .blockquote {
   margin: 1rem 0;
   padding: 0.8rem 1.2rem;
-  background-color: #f8f9fa;
-  border-left: 4px solid #dee2e6;
-  color: #6c757d;
+  background-color: var(--blockquote-bg);
+  border-left: 4px solid var(--blockquote-border);
+  color: var(--blockquote-text);
 
   p {
     margin: 0;
@@ -145,4 +168,27 @@ h6 {
   margin: 1rem 0;
   border-radius: 4px;
   cursor: zoom-in;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .code-block {
+    margin: 1em -0.5rem;
+    // border-radius: 0;
+    border-left: none;
+    border-right: none;
+    
+    pre {
+      padding: 0.75rem;
+      font-size: 14px;
+    }
+  }
+  
+  .markdown .alone-code {
+    font-size: 14px;
+  }
+  
+  .markdown {
+    font-size: 15px;
+  }
 }
