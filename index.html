@@ -7,13 +7,12 @@
     <title>Vite + React + TS</title>
     <!--app-head-->
     <style>
-      /* fix FOUC (Flash of Unstyled Content) */
+      /* Reduce FOUC (Flash of Unstyled Content) with minimal impact */
       body {
-        opacity: 0;
-        transition: opacity 0.1s ease-out;
+        visibility: hidden;
       }
       body.hydrated {
-        opacity: 1;
+        visibility: visible;
       }
     </style>
   </head>

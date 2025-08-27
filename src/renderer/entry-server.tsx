@@ -85,9 +85,8 @@ export async function render(req: { originalUrl: string, headers: Record<string,
         </AppProvider>
       </React.StrictMode>,
       {
-        onAllReady() {
-          // Wait for all data to be ready before streaming
-          // This reduces flicker but may increase TTFB
+        onShellReady() {
+          // Shell is ready, we can start streaming
           const dehydratedState = dehydrate(queryClient);
           queryClient.clear();
 
