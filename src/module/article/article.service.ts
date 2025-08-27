@@ -30,11 +30,14 @@ export class ArticleService {
     // 查询所有置顶文章
     const topArticles = await this.articleRepository
       .createQueryBuilder("article")
+      .leftJoinAndSelect("article.tags", "tags")
       .select([
         "article.id", // 选择 id 字段
         "article.title", // 选择 title 字段
         "article.createdAt", // 选择 createdAt 字段
         "article.updatedAt", // 选择 updatedAt 字段
+        "tags.id", // 选择标签 id
+        "tags.name", // 选择标签名称
       ])
       .where("article.type = :type", { type: "article" })
       .andWhere("article.isPublished = :isPublished", { isPublished: 1 })
@@ -45,11 +48,14 @@ export class ArticleService {
     // 查询普通文章列表
     const articles = await this.articleRepository
       .createQueryBuilder("article")
+      .leftJoinAndSelect("article.tags", "tags")
       .select([
         "article.id", // 选择 id 字段
         "article.title", // 选择 title 字段
         "article.createdAt", // 选择 createdAt 字段
         "article.updatedAt", // 选择 updatedAt 字段
+        "tags.id", // 选择标签 id
+        "tags.name", // 选择标签名称
       ])
       .where("article.type = :type", { type: "article" })
       .andWhere("article.isPublished = :isPublished", { isPublished: 1 })

@@ -7,9 +7,15 @@ import { api } from "@/utils/request";
 import { Layout } from "@/components";
 import styles from './index.module.css';
 
+interface Tag {
+  id: number;
+  name: string;
+}
+
 interface ArticleListItem {
   id: number;
   title: string;
+  tags?: Tag[];
   createdAt: string;
   updatedAt: string;
 }
@@ -70,9 +76,15 @@ function Page() {
                 <time className={styles.postDate}>
                   {new Date(article.createdAt).toLocaleDateString('zh-CN')}
                 </time>
-                <span className={styles.postTags}>
-                  {/* 标签信息需要从详情接口获取，这里暂时为空 */}
-                </span>
+                {article.tags && article.tags.length > 0 && (
+                  <div className={styles.postTags}>
+                    {article.tags.map((tag) => (
+                      <span key={tag.id} className={styles.tag}>
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </article>
           ))}

@@ -41,6 +41,10 @@ export class ArticleListDto {
   title!: string;
 
   @Expose()
+  @Type(() => TagDto)
+  tags?: TagDto[];
+
+  @Expose()
   @Transform(({ value }) => format(new Date(value), "yyyy-MM-dd HH:mm:ss")) // 转换为本地时间字符串
   createdAt!: Date;
 
