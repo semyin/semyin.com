@@ -7,6 +7,13 @@ import * as Detail from '@/pages/Detail';
 import * as Categories from '@/pages/Categories';
 import * as Tags from '@/pages/Tags';
 import ErrorPage from '@/pages/ErrorPage/';
+// import { lazyImport } from '@/utils/lazyImport';
+
+// const Home = lazyLoad(() => import('@/pages/Home'));
+// const About = lazyLoad(() => import('@/pages/About'));
+// const Categories = lazyLoad(() => import('@/pages/Categories'));
+// const Tags = lazyLoad(() => import('@/pages/Tags'));
+// const Detail = lazyLoad(() => import('@/pages/Detail'));
 
 const createRoutes = (queryClient: QueryClient): RouteObject[] => [
   {
