@@ -1,11 +1,12 @@
 import React from 'react';
 import { StaticRouterProvider, createStaticHandler, createStaticRouter } from 'react-router';
-import { renderToString } from "react-dom/server";
+import { renderToPipeableStream } from "react-dom/server";
 import { dehydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import { createRoutes } from './routes';
 import { createInitialState, StoreProvider } from '@/store';
 import { AppProvider, IGlobalState } from './AppContext';
+import { PassThrough } from 'stream';
 
 export async function render(req: { originalUrl: string, headers: Record<string, string>, cookies: Record<string, string> }) {
 
@@ -61,36 +62,73 @@ export async function render(req: { originalUrl: string, headers: Record<string,
   // 9. create static router using handler.dataRoutes and context
   const router = createStaticRouter(handler.dataRoutes, context);
 
-  const html = renderToString(
-    <React.StrictMode>
-      <AppProvider initialState={globalInitialState}>
-        <StoreProvider initialState={initialValtioState}>
-          <HelmetProvider context={helmetContext}>
-            <QueryClientProvider client={queryClient}>
-              <StaticRouterProvider router={router} context={context} />
-            </QueryClientProvider>
-          </HelmetProvider>
-        </StoreProvider >
-      </AppProvider>
-    </React.StrictMode>
-  );
+  // 10. Return streaming function instead of static string
+  return new Promise<{
+    stream: NodeJS.ReadableStream;
+    head: string;
+    dehydratedState: any;
+    globalInitialState: IGlobalState;
+    initialValtioState: any;
+  }>((resolve, reject) => {
+    let didError = false;
 
-   // 10. dehydration
-  const dehydratedState = dehydrate(queryClient);
+    const { pipe, abort } = renderToPipeableStream(
+      <React.StrictMode>
+        <AppProvider initialState={globalInitialState}>
+          <StoreProvider initialState={initialValtioState}>
+            <HelmetProvider context={helmetContext}>
+              <QueryClientProvider client={queryClient}>
+                <StaticRouterProvider router={router} context={context} />
+              </QueryClientProvider>
+            </HelmetProvider>
+          </StoreProvider >
+        </AppProvider>
+      </React.StrictMode>,
+      {
+        onAllReady() {
+          // Wait for all data to be ready before streaming
+          // This reduces flicker but may increase TTFB
+          const dehydratedState = dehydrate(queryClient);
+          queryClient.clear();
 
-  // 11. clear queryClient
-  queryClient.clear();
+          const { helmet } = helmetContext;
+          const head = helmet
+            ? `
+              ${helmet.title.toString()}
+              ${helmet.meta.toString()}
+              ${helmet.link.toString()}
+              ${helmet.script.toString()}
+            `
+            : '';
 
-  const { helmet } = helmetContext;
+          const stream = new PassThrough();
+          pipe(stream);
 
-  const head = helmet
-    ? `
-      ${helmet.title.toString()}
-      ${helmet.meta.toString()}
-      ${helmet.link.toString()}
-      ${helmet.script.toString()}
-    `
-    : '';
+          resolve({
+            stream,
+            head,
+            dehydratedState,
+            globalInitialState,
+            initialValtioState,
+          });
+        },
+        onShellError(error) {
+          didError = true;
+          reject(error);
+        },
+        onError(error) {
+          didError = true;
+          console.error('Streaming SSR Error:', error);
+        },
+      }
+    );
 
-  return { html, head, dehydratedState, globalInitialState, initialValtioState }
+    // Set a timeout to abort if streaming takes too long
+    setTimeout(() => {
+      if (!didError) {
+        abort();
+        reject(new Error('SSR streaming timeout'));
+      }
+    }, 10000); // 10 second timeout
+  });
 }

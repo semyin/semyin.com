@@ -1,19 +1,14 @@
 import { RouteObject } from 'react-router';
 import { QueryClient } from '@tanstack/react-query';
 import App from './App';
-import * as Home from '@/pages/Home';
-import * as About from '@/pages/About';
-import * as Detail from '@/pages/Detail';
-import * as Categories from '@/pages/Categories';
-import * as Tags from '@/pages/Tags';
 import ErrorPage from '@/pages/ErrorPage/';
-// import { lazyImport } from '@/utils/lazyImport';
+import { lazyImport } from '@/utils/lazyImport';
 
-// const Home = lazyLoad(() => import('@/pages/Home'));
-// const About = lazyLoad(() => import('@/pages/About'));
-// const Categories = lazyLoad(() => import('@/pages/Categories'));
-// const Tags = lazyLoad(() => import('@/pages/Tags'));
-// const Detail = lazyLoad(() => import('@/pages/Detail'));
+const Home = lazyImport(() => import('@/pages/Home'));
+const About = lazyImport(() => import('@/pages/About'));
+const Categories = lazyImport(() => import('@/pages/Categories'));
+const Tags = lazyImport(() => import('@/pages/Tags'));
+const Detail = lazyImport(() => import('@/pages/Detail'));
 
 const createRoutes = (queryClient: QueryClient): RouteObject[] => [
   {

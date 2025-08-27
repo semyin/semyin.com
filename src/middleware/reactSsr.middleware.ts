@@ -19,7 +19,6 @@ async function reactSsrMiddleware(req: Request, res: Response, next: NextFunctio
   
   const url = req.originalUrl;
   
-  let html: string;
   let template: string;
   let render;
   
@@ -40,6 +39,7 @@ async function reactSsrMiddleware(req: Request, res: Response, next: NextFunctio
     const rendered = await render({
       originalUrl: req.originalUrl,
       headers: req.headers as Record<string, string>,
+      cookies: req.cookies || {},
     });
 
     const dehydratedStateScript = `<script>window.__REACT_QUERY_STATE__ = ${JSON.stringify(rendered.dehydratedState).replace(/</g, '\\u003c')}</script>`;
@@ -53,14 +53,36 @@ async function reactSsrMiddleware(req: Request, res: Response, next: NextFunctio
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     
-    html = template
-      .replace(`<!--app-head-->`, rendered.head ?? '')
-      .replace(`<!--app-html-->`, rendered.html ?? '')
-      .replace(`<!--app-initial-state-->`, globalInitialStateScript)
-      .replace(`<!--app-initial-valtio-state-->`, initialValtioStateScript)
-      .replace(`<!--app-data-->`, dehydratedStateScript);
+    // Split template into parts for streaming
+    const [beforeApp, afterApp] = template.split('<!--app-html-->');
+    
+    // Send initial part of HTML
+    const htmlStart = beforeApp
+      .replace(`<!--app-head-->`, rendered.head ?? '');
+    
+    res.write(htmlStart);
+    
+    // Pipe the React stream
+    rendered.stream.pipe(res, { end: false });
+    
+    // When streaming finishes, send the closing HTML with scripts
+    rendered.stream.on('end', () => {
+      const htmlEnd = afterApp
+        .replace(`<!--app-initial-state-->`, globalInitialStateScript)
+        .replace(`<!--app-initial-valtio-state-->`, initialValtioStateScript)
+        .replace(`<!--app-data-->`, dehydratedStateScript);
+      res.end(htmlEnd);
+    });
+    
+    rendered.stream.on('error', (error: Error) => {
+      console.error('Stream error:', error);
+      const htmlEnd = afterApp
+        .replace(`<!--app-initial-state-->`, globalInitialStateScript)
+        .replace(`<!--app-initial-valtio-state-->`, initialValtioStateScript)
+        .replace(`<!--app-data-->`, dehydratedStateScript);
+      res.end(htmlEnd);
+    });
    
-    res.status(200).end(html);
   } catch (error) {
 
     if (error instanceof Response) {
