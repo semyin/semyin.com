@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { About } from './about.entity';
 import { plainToInstance } from 'class-transformer';
 import { MetaService } from '../meta/meta.service';
+import { UpdateAboutDto } from './dto/about.dto';
+import { DEFAULT_ABOUT_DATA } from './constants/default-about';
 
 @Injectable()
 export class AboutService {
@@ -14,13 +16,7 @@ export class AboutService {
   ) {}
 
   private async createDefaultAbout(): Promise<About> {
-    const about = this.aboutRepository.create({
-      title: '关于',
-      content: '这里是关于页面的内容，请编辑修改。',
-      summary: '关于页面',
-      authorId: 1,
-      isPublished: false
-    });
+    const about = this.aboutRepository.create(DEFAULT_ABOUT_DATA);
     await this.aboutRepository.save(about);
     return about;
   }
@@ -63,32 +59,18 @@ export class AboutService {
     return plainToInstance(About, about);
   }
 
-  async update(
-    title: string, 
-    content: string, 
-    summary?: string, 
-    coverImage?: string, 
-    isPublished?: boolean
-  ): Promise<About> {
-    let about = await this.aboutRepository.findOne({
-      order: { id: 'ASC' }
-    });
+  async update(updateData: UpdateAboutDto): Promise<About> {
+    let about = await this.aboutRepository
+      .createQueryBuilder('about')
+      .orderBy('about.id', 'ASC')
+      .getOne();
     
     if (!about) {
       about = await this.createDefaultAbout();
     }
     
-    about.title = title;
-    about.content = content;
-    if (summary !== undefined) {
-      about.summary = summary;
-    }
-    if (coverImage !== undefined) {
-      about.coverImage = coverImage;
-    }
-    if (isPublished !== undefined) {
-      about.isPublished = isPublished;
-    }
+    // 使用Object.assign批量更新
+    Object.assign(about, updateData);
     
     await this.aboutRepository.save(about);
     return plainToInstance(About, about);

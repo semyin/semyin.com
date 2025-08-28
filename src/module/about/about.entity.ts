@@ -3,6 +3,7 @@ import type { Relation } from 'typeorm'
 import { Transform } from 'class-transformer';
 import { format } from 'date-fns';
 import { Meta } from '../meta/meta.entity';
+import { BlogJourneyItem, ContactMethod } from './dto/about.dto';
 
 @Entity('about')
 export class About {
@@ -30,6 +31,12 @@ export class About {
 
   @Column({ name: 'view_count', default: 0 })
   viewCount?: number;
+
+  @Column({ type: 'json', nullable: true })
+  contactMethods?: Array<ContactMethod>;
+
+  @Column({ type: 'json', nullable: true })
+  blogJourney?: Array<BlogJourneyItem>;
 
   @CreateDateColumn({ name: 'created_at' })
   @Transform(({ value }) => format(new Date(value), 'yyyy-MM-dd HH:mm:ss'))

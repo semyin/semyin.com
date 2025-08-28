@@ -2,6 +2,7 @@ import { Controller, Get, Body, Put, UseGuards } from '@nestjs/common';
 import { AboutService } from './about.service';
 import { About } from './about.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UpdateAboutDto } from './dto/about.dto';
 
 @Controller()
 export class AboutController {
@@ -22,13 +23,7 @@ export class AboutController {
 
   @Put()
   @UseGuards(JwtAuthGuard)
-  async update(
-    @Body('title') title: string,
-    @Body('content') content: string,
-    @Body('summary') summary?: string,
-    @Body('coverImage') coverImage?: string,
-    @Body('isPublished') isPublished?: boolean,
-  ): Promise<About> {
-    return this.aboutService.update(title, content, summary, coverImage, isPublished);
+  async update(@Body() updateData: UpdateAboutDto): Promise<About> {
+    return this.aboutService.update(updateData);
   }
 }
