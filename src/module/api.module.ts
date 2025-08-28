@@ -3,9 +3,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RouterModule } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HomeModule } from './home/home.module';
-import { AboutModule } from './about/about.module';
-import { DetailModule } from './detail/detail.module';
 import { ApiController } from './api.controller';
 import { parseBoolean } from '@/common/utils';
 import { SnakeNamingStrategy } from '@/common/utils/SnakeNamingStrategy';
@@ -77,26 +74,11 @@ import { FileModule } from './file/file.module';
     FriendLinkModule, // 注册 FriendLinkModule
     AuthModule, // 注册 AuthModule
     FileModule, // 注册 FileModule
-    HomeModule,
-    AboutModule,
-    DetailModule,
     RouterModule.register([
       {
         path: 'api',
         module: ApiModule,
         children: [
-          {
-            path: 'home',
-            module: HomeModule,
-          },
-          {
-            path: 'about',
-            module: AboutModule,
-          },
-          {
-            path: 'detail',
-            module: DetailModule,
-          },
           {
             path: 'articles',
             module: ArticleModule,
