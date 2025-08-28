@@ -2,7 +2,7 @@ import { Controller, Get, Body, Put, UseGuards } from '@nestjs/common';
 import { AboutService } from './about.service';
 import { About } from './about.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { UpdateAboutDto } from './dto/about.dto';
+import type { UpdateAboutDto } from './dto/about.dto';
 
 @Controller()
 export class AboutController {
