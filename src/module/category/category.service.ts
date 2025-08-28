@@ -12,8 +12,8 @@ export class CategoryService {
   ) { }
 
   // 创建分类
-  async create(name: string, description?: string): Promise<Category> {
-    const category = await this.categoryRepository.create({ name, description });
+  async create(name: string, description?: string, emoji?: string): Promise<Category> {
+    const category = await this.categoryRepository.create({ name, description, emoji });
     await this.categoryRepository.save(category);
     return plainToInstance(Category, category)
   }
@@ -40,11 +40,14 @@ export class CategoryService {
   }
 
   // 更新分类
-  async update(id: number, name: string, description?: string): Promise<Category> {
+  async update(id: number, name: string, description?: string, emoji?: string): Promise<Category> {
     const category = await this.findOne(id);
     category.name = name;
-    if (description) {
+    if (description !== undefined) {
       category.description = description;
+    }
+    if (emoji !== undefined) {
+      category.emoji = emoji;
     }
     await this.categoryRepository.save(category);
     return plainToInstance(Category, category);

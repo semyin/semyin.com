@@ -14,6 +14,9 @@ export class Category {
   @Column({ type: 'text', nullable: true })
   description!: string;
 
+  @Column({ type: 'varchar', length: 10, nullable: true })
+  emoji!: string;
+
   @OneToMany(() => Article, (article) => article.category)
   articles?: Relation<Article>[];
 

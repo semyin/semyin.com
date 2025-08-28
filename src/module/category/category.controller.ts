@@ -24,8 +24,8 @@ export class CategoryController {
   // 创建分类
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body('name') name: string, @Body('description') description?: string): Promise<Category> {
-    return this.categoryService.create(name, description);
+  async create(@Body('name') name: string, @Body('description') description?: string, @Body('emoji') emoji?: string): Promise<Category> {
+    return this.categoryService.create(name, description, emoji);
   }
 
   // 更新分类
@@ -35,8 +35,9 @@ export class CategoryController {
     @Param('id') id: number,
     @Body('name') name: string,
     @Body('description') description?: string,
+    @Body('emoji') emoji?: string,
   ): Promise<Category> {
-    return this.categoryService.update(id, name, description);
+    return this.categoryService.update(id, name, description, emoji);
   }
 
   // 删除分类
