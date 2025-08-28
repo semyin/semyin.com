@@ -29,6 +29,8 @@ import { FriendLink } from "./friend-link/friend-link.entity";
 import { FriendLinkModule } from "./friend-link/friend-link.module";
 import { AuthModule } from "./auth/auth.module";
 import { FileModule } from './file/file.module';
+import { AboutModule } from './about/about.module';
+import { About } from './about/about.entity';
 
 
 @Module({
@@ -59,6 +61,7 @@ import { FileModule } from './file/file.module';
           Meta,
           FriendLink,
           File,
+          About,
         ],
       }),
     }),
@@ -74,6 +77,7 @@ import { FileModule } from './file/file.module';
     FriendLinkModule, // 注册 FriendLinkModule
     AuthModule, // 注册 AuthModule
     FileModule, // 注册 FileModule
+    AboutModule, // 注册 AboutModule
     RouterModule.register([
       {
         path: 'api',
@@ -126,6 +130,10 @@ import { FileModule } from './file/file.module';
           {
             path: 'files',
             module: FileModule,
+          },
+          {
+            path: 'about',
+            module: AboutModule,
           }
         ],
       },
